@@ -41,9 +41,14 @@ def select_files():
         file_label.config(text="File(s) Selected : 'YES'",background='green')
     
 def retrieve_input():
+    global filenames
     inputValue1=textBox1.get("1.0","end-1c")
     inputValue2=textBox2.get("1.0","end-1c")
-    return((inputValue1,inputValue2))
+    if inputValue1 == "":
+         inputValue1=1000
+    if inputValue2 == "":
+         inputValue2=1
+    convert(filenames,inputValue1,inputValue2)
 
 
 filenames = []
@@ -65,13 +70,9 @@ label2=tk.Label(root,text="Choose the number of slide per page [1 or 2](default 
 label2.pack()
 textBox2=tk.Text(root, height=2, width=10)
 textBox2.pack()
-aa,bb=retrieve_input()
-if aa == "":
-    aa=1000
-if bb == "":
-    bb=1
+
 buttonCommit=tk.Button(root, height=1, width=15, text="Start Pdfication", 
-                    command=lambda: convert(filenames,aa,bb))
+                    command=lambda: retrieve_input())
 #command=lambda: retrieve_input() >>> just means do this when i press the button
 buttonCommit.pack()
 

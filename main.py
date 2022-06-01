@@ -21,7 +21,8 @@ def remove_dir(path):
     except OSError:
         print(f"ERROR: deleting directoring with name {path}")
              
-def save_frame(video_path, save_dir, gap=1000, pp = 1):
+def save_frame(video_path, save_dir, gap, pp ):
+    print(gap,pp)
     name = video_path.split("/")[-1].split(".")[0]
     save_path =  os.path.join(save_dir, name)
     create_dir(save_path)
