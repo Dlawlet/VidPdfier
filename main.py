@@ -21,21 +21,21 @@ def remove_dir(path):
     except OSError:
         print(f"ERROR: deleting directoring with name {path}")
              
-def save_frame(video_path, save_dir, gap):
+def save_frame(video_path, save_dir, gap=1000, pp = 1):
     name = video_path.split("/")[-1].split(".")[0]
     save_path =  os.path.join(save_dir, name)
     create_dir(save_path)
-
+    gap=int(gap)
     pdf = FPDF()
 
     cap =cv2.VideoCapture(video_path)
     idx = 0
 
     cperpage = 0
-    perpage = 2
+    perpage = int(pp)
     pdf.add_page()
 
-    while idx<=3000:
+    while True:
         ret, frame = cap.read()
 
         if ret == False:
@@ -52,7 +52,3 @@ def save_frame(video_path, save_dir, gap):
         idx += 1
     remove_dir(save_path)
     pdf.output(f"{name}_{random.randint(0,123345)}.pdf", "F")
-if __name__ == "__main__" :
-    video_paths = "videos/Mbampromo1.mp4"
-    save_dir = "save"
-    save_frame(video_paths, save_dir, gap = 1000)
